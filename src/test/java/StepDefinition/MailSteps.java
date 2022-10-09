@@ -12,10 +12,8 @@ public static WebDriver driver;
 	
 	@Given("User visits google.com")
 	public void user_visits_google_com() throws Throwable {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\neils\\chromedriver_win32\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
         driver = new ChromeDriver();
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(8));
-
         driver.manage().window().maximize();
         driver.get("https://www.google.com/");
 	}
