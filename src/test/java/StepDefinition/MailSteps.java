@@ -1,8 +1,13 @@
 package StepDefinition;
 
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.cucumber.java.en.*;
 
@@ -14,6 +19,8 @@ public static WebDriver driver;
 	public void user_visits_google_com() throws Throwable {
 		System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
         driver = new ChromeDriver();
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
         driver.manage().window().maximize();
         driver.get("https://www.google.com/");
 	}
@@ -29,7 +36,12 @@ public static WebDriver driver;
 	public void user_enters_valid_email_id_and_password() throws Throwable {
 		driver.findElement(By.id("identifierId")).sendKeys("testingautomation699@gmail.com");
 		driver.findElement(By.xpath("//*[@id='identifierNext']/div/button/span")).click();
-		Thread.sleep(8000);
+		
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+		
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[type='password']")));
+		
+	//	Thread.sleep(8000);
 		driver.findElement(By.cssSelector("input[type='password']")).sendKeys("selenium@123");
 		driver.findElement(By.xpath("//*[@id='passwordNext']/div/button/span")).click();
 		
@@ -37,7 +49,11 @@ public static WebDriver driver;
 
 	@When("User sends an email to with required subject and body")
 	public void user_sends_an_email_to_with_required_subject_and_body() throws Throwable {
-		Thread.sleep(12000);
+WebDriverWait w = new WebDriverWait(driver,Duration.ofSeconds(12));
+		
+		w.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[class='T-I T-I-KE L3']")));
+
+		//Thread.sleep(12000);
 		driver.findElement(By.cssSelector("div[class='T-I T-I-KE L3']")).click();
 driver.findElement(By.cssSelector("input[class='agP aFw']")).sendKeys("testingautomation699@gmail.com");	
 driver.findElement(By.xpath("//*[@class='aoT']")).sendKeys("Incubyte");
@@ -47,8 +63,13 @@ driver.findElement(By.xpath("//*[@class='aoT']")).sendKeys("Incubyte");
 
 	@Then("The email appears in the sent folder of gmail with required subject and body")
 	public void the_email_appears_in_the_sent_folder_of_gmail_with_required_subject_and_body() throws Throwable {
-		Thread.sleep(10000);
-		driver.findElement(By.cssSelector("div[class='TN bzz aHS-bnu']")).click();
+		
+WebDriverWait x = new WebDriverWait(driver,Duration.ofSeconds(10));
+		
+	x.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[class='aim ain']")));
+
+		//Thread.sleep(10000);
+		driver.findElement(By.cssSelector("div[class='aim ain']")).click();
 		driver.close();
 
 	}
